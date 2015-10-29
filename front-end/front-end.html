@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Giphy API Front End Sample</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  </head>
+  <body background="http://www.isauhm.com/wp-content/uploads/2014/10/violet-vector-leaves-circles-backgrounds-for-powerpoint.jpg">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12"><h3>Giph Me!</h3></div>
+      </div>
+
+      <div class="row">
+          <div class="form-group">
+            <label for="search-term">Enter a search term:</label>
+            <input type="text" class="form-control" id="search-term">
+            <button id="translate-button" class="btn btn-default">Translate!</button>
+             <button id="search-button" class="btn btn-default">Search!</button>
+            <button id="endpoint-button" class="btn btn-default">Find A Giphy By Endpoint!</button>
+            <button id="random-button" class="btn btn-default">Random!</button>
+            <button id="sticksearch-button" class="btn btn-default">Search Sticker!</button>
+            <button id="trend-button" class="btn btn-default">What's Trending?!</button>
+            <button id="clear-button" class="btn btn-default">Clear All :D</button>
+          </div>
+      </div>
+      <p> Click on the image to get rid of it.</p>
+    </div>
+    <div id="forImages"></div>
+
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="giphy-sample.js"></script>
+  </body>
+</html>
