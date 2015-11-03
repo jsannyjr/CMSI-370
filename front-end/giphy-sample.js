@@ -18,8 +18,8 @@ $(function () {
                 alt: "search result"
             });
 
-            $("#forImages").append(img);
-            $("#forImages").append("<p> id: " + result.data.id + "</p>") 
+            $("#forImages").prepend(img);
+            $("#forImages").prepend("<p> id: " + result.data.id + "</p>") 
             $("img").click(function(){
                 $(this).hide();
             });
@@ -39,8 +39,8 @@ $(function () {
                 alt: "search result"
             });
 
-            $("#forImages").append(img);
-            $("#forImages").append("<p> id: " + result.data[0].id + "</p>") 
+            $("#forImages").prepend(img);
+            $("#forImages").prepend("<p> id: " + result.data[0].id + "</p>") 
             $("img").click(function(){
                 $(this).hide();
             });
@@ -60,8 +60,8 @@ $(function () {
                 alt: "search result"
             });
 
-            $("#forImages").append(img);
-            $("#forImages").append("<p> id: " + result.data.id + "</p>") 
+            $("#forImages").prepend(img);
+            $("#forImages").prepend("<p> id: " + result.data.id + "</p>") 
             $("img").click(function(){
                 $(this).hide();
             });
@@ -75,17 +75,13 @@ $(function () {
                 api_key: "dc6zaTOxFJmzC"
             }
         ).done(function (result) {
-            //console.log(result);
             var img = $("<img/>").attr({
                 alt: "search result",
                 src: result.data.image_url
             });
-            $("#forImages").append(img);
-            $("#forImages").append("<p> id: " + result.data.id + "</p>");
+            $("#forImages").prepend(img);
+            $("#forImages").prepend("<p> id: " + result.data.id + "</p>");
             $("img").click(function(){
-                $(this).hide();
-            });
-            $("api_key").click(function(){
                 $(this).hide();
             });
         });
@@ -107,8 +103,8 @@ $(function () {
                 alt: "search result"
             });
 
-            $("#forImages").append(img);
-            $("#forImages").append("<p> id: " + result.data[0].id + "</p>") 
+            $("#forImages").prepend(img);
+            $("#forImages").prepend("<p> id: " + result.data[0].id + "</p>") 
             $("img").click(function(){
                 $(this).hide();
             });
@@ -119,7 +115,6 @@ $(function () {
             "http://api.giphy.com/v1/stickers/trending",
 
             {
-                //q: $("#search-term").val(),
                 api_key: "dc6zaTOxFJmzC"
             }
         ).done(function (result) {
