@@ -85,6 +85,9 @@ $(function () {
             $("img").click(function(){
                 $(this).hide();
             });
+            $("api_key").click(function(){
+                $(this).hide();
+            });
         });
     });
     $("#sticksearch-button").click(function () {
