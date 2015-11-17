@@ -1,15 +1,15 @@
 $(function () {
 
     $("#translate-button").click(function () {
-        if($("#search-term").val() == "") {
+        if($("#search-term").val() == "") { // JD: 7, 8, 9
             return;
-        }
+        } // JD: 10
         $.getJSON(
             "http://api.giphy.com/v1/gifs/translate",
 
             {
                 s: $("#search-term").val(),
-                api_key: "dc6zaTOxFJmzC"
+                api_key: "dc6zaTOxFJmzC" // JD: 11
             }
         ).done(function (result) {
             console.log(result);
@@ -20,18 +20,18 @@ $(function () {
 
             $("#forImages").prepend(img);
             $("#forImages").prepend("<p> id: " + result.data.id + "</p>") 
-            $("img").click(function(){
-                $(this).hide();
+            $("img").click(function(){ // JD: 12, 13
+                $(this).hide(); // JD: 14
             });
         });
-    });   
+    }); // JD: 10
     $("#search-button").click(function () {
         $.getJSON(
             "http://api.giphy.com/v1/gifs/search",
 
             {
                 q: $("#search-term").val(),
-                api_key: "dc6zaTOxFJmzC"
+                api_key: "dc6zaTOxFJmzC" // JD: 15
             }
         ).done(function (result) {
             var img = $("<img/>").attr({
@@ -43,15 +43,15 @@ $(function () {
             $("#forImages").prepend("<p> id: " + result.data[0].id + "</p>") 
             $("img").click(function(){
                 $(this).hide();
-            });
+            }); // JD: 16
         });      
-    });  
+    }); // JD: 10
     $("#endpoint-button").click(function () {
         $.getJSON(
             "http://api.giphy.com/v1/gifs/" + $("#search-term").val(),
 
             {
-                api_key: "dc6zaTOxFJmzC"
+                api_key: "dc6zaTOxFJmzC" // JD: 15
             }
         ).done(function (result) {
             console.log(result);
@@ -64,7 +64,7 @@ $(function () {
             $("#forImages").prepend("<p> id: " + result.data.id + "</p>") 
             $("img").click(function(){
                 $(this).hide();
-            });
+            }); // JD: 17
         });
     });
     $("#random-button").click(function () {
@@ -72,7 +72,7 @@ $(function () {
             "http://api.giphy.com/v1/gifs/random",
 
             {
-                api_key: "dc6zaTOxFJmzC"
+                api_key: "dc6zaTOxFJmzC" // JD: 15
             }
         ).done(function (result) {
             var img = $("<img/>").attr({
@@ -83,19 +83,19 @@ $(function () {
             $("#forImages").prepend("<p> id: " + result.data.id + "</p>");
             $("img").click(function(){
                 $(this).hide();
-            });
+            }); // JD: 17
         });
-    });
+    }); // JD: 10
     $("#sticksearch-button").click(function () {
-        if($("#search-term").val() == "") {
+        if($("#search-term").val() == "") { // JD: 7, 8, 9
             return;
-        }
+        } // JD: 10
         $.getJSON(
             "http://api.giphy.com/v1/stickers/search",
 
             {
                 q: $("#search-term").val(),
-                api_key: "dc6zaTOxFJmzC"
+                api_key: "dc6zaTOxFJmzC" // JD: 15
             }
         ).done(function (result) {
             var img = $("<img/>").attr({
@@ -107,34 +107,34 @@ $(function () {
             $("#forImages").prepend("<p> id: " + result.data[0].id + "</p>") 
             $("img").click(function(){
                 $(this).hide();
-            });
+            }); // JD: 17
         });
-    });
+    }); // JD: 10
     $("#trend-button").click(function () {
         $.getJSON(
             "http://api.giphy.com/v1/stickers/trending",
 
             {
-                api_key: "dc6zaTOxFJmzC"
+                api_key: "dc6zaTOxFJmzC" // JD: 15
             }
         ).done(function (result) {
-            
-            result.data.forEach(function(imgObj, index) {
-                if(index > 4) {
+            // JD: 18
+            result.data.forEach(function(imgObj, index) { // JD: 12
+                if(index > 4) { // JD: 7
                     return;
-                }
+                } // JD: 10
                 $("<img/>").attr({
                     src: imgObj.images.original.url,
                     alt: "search result",
                     id: "imgObj" + index
-                }).click(function(){
+                }).click(function(){ // JD: 12, 13
                     $(this).hide();
-                }).appendTo($("#forImages"));
+                }).appendTo($("#forImages")); // JD: 19
                 $("#forImages").append("<p> id: " + imgObj.id + "</p>") 
             });
         });
-    });
-    $("#clear-button").click(function() {
-        $("#forImages").empty();
+    }); // JD: 10
+    $("#clear-button").click(function() { // JD: 12
+        $("#forImages").empty(); // JD: 20
     });
 });

@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html> <!-- JD: 1 -->
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,15 +9,17 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <!-- JD: 2 -->
     <style type="text/css">
     body { 
-     background: url(https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQBRlmd3Lx2-NdUhW3S3SG9NBuYNTjm-n4DU58mNbrnN50CdHGXGQ) no-repeat center center fixed; 
+     background: url(https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQBRlmd3Lx2-NdUhW3S3SG9NBuYNTjm-n4DU58mNbrnN50CdHGXGQ) no-repeat center center fixed; /* JD: 3 */
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
     }
-</style>
+</style> <!-- JD: 3 -->
   </head>
   <body>
     <div class="container">
@@ -33,15 +35,15 @@
             <b>Fun Facts</b>: Click on the image to get rid of it and to clear all Endpoints and Gifs Click "Clear All :D"</p>
         <h4> Get Started:</h4> 
         <p> <b> Type in your desired term or use these examples: </b> Sample Terms: Sup, Netflix and Chill, Stressed Student. Endpoints Ids: 11m4UPaNxgWgyQ, 11EbCPxvUI6ynm, 12uhRWn6y5VXZ6.</p>
-        <div class="col-xs-12"></div>
+        <div class="col-xs-12"></div> <!-- JD: 4 -->
       </div>
 
       <div class="row">
-          <div class="form-group">
+          <div class="form-group"> <!-- JD: 3 -->
             <label for="search-term">Enter a search term:</label>
             <input type="text" class="form-control" id="search-term">
             <button id="translate-button" class="btn btn-default">Translate!</button>
-             <button id="search-button" class="btn btn-default">Search!</button>
+             <button id="search-button" class="btn btn-default">Search!</button> <!-- JD: 3 -->
             <button id="endpoint-button" class="btn btn-default">Find A Giphy By Endpoint!</button>
             <button id="random-button" class="btn btn-default">Random!</button>
             <button id="sticksearch-button" class="btn btn-default">Search Sticker!</button>
@@ -50,11 +52,11 @@
           </div>
       </div>
     </div>
-  <div class="col-md-12">
+  <div class="col-md-12"> <!-- JD: 3, 5 -->
     <div id="forImages"></div>
-</div>
+</div> <!-- JD: 3 -->
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="giphy-sample.js"></script>
+    <script src="giphy-sample.js"></script> <!-- JD: 6 -->
   </body>
 </html>
