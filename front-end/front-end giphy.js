@@ -2,6 +2,7 @@ $(function () {
     remove = function() {
         $(this).remove(); 
     }; 
+    var key = "dc6zaTOxFJmzC" 
     $("#translate-button").click(function () {
         if(!$("#search-term").val()) { // JD: 7, 8, 9
             alert("Enter a search term!")
@@ -12,8 +13,9 @@ $(function () {
 
             {
                 s: $("#search-term").val(),
-                api_key: "dc6zaTOxFJmzC" // JD: 11
+                api_key: key // JD: 11
             }
+            
         ).done(function (result) {
             console.log(result);
             var img = $("<img/>").attr({
@@ -33,7 +35,7 @@ $(function () {
 
             {
                 q: $("#search-term").val(),
-                api_key: "dc6zaTOxFJmzC" // JD: 15
+                api_key: key // JD: 15
             }
         ).done(function (result) {
             var img = $("<img/>").attr({
@@ -52,7 +54,7 @@ $(function () {
             "http://api.giphy.com/v1/gifs/" + $("#search-term").val(),
 
             {
-                api_key: "dc6zaTOxFJmzC" // JD: 15
+                api_key: key // JD: 15
             }
         ).done(function (result) {
             console.log(result);
@@ -72,7 +74,7 @@ $(function () {
             "http://api.giphy.com/v1/gifs/random",
 
             {
-                api_key: "dc6zaTOxFJmzC" // JD: 15
+                api_key: key // JD: 15
             }
         ).done(function (result) {
             var img = $("<img/>").attr({
@@ -95,7 +97,7 @@ $(function () {
 
             {
                 q: $("#search-term").val(),
-                api_key: "dc6zaTOxFJmzC" // JD: 15
+                api_key: key // JD: 15
             }
         ).done(function (result) {
             var img = $("<img/>").attr({
@@ -114,7 +116,7 @@ $(function () {
             "http://api.giphy.com/v1/stickers/trending",
 
             {
-                api_key: "dc6zaTOxFJmzC" // JD: 15
+                api_key: key // JD: 15
             }
         ).done(function (result) {
             // JD: 18
