@@ -11,12 +11,12 @@ $(function () {
     var key = "dc6zaTOxFJmzC" 
     $("#translate-button").click(function () {
         valid("#search-term");
-       // JD: 10
+
         $.getJSON(
             "http://api.giphy.com/v1/gifs/translate",
             {
                 s: $("#search-term").val(),
-                api_key: key // JD: 11
+                api_key: key
             }
         ).done(function (result) {
             var img = $("<img/>").attr({
@@ -27,7 +27,7 @@ $(function () {
             $("#forImages").prepend("<p> Translated term " + ($("#search-term").val()) + " id: " + result.data.id + "</p>") 
             $("img").click(remove);
         });
-    }); // JD: 10
+    }); 
 
     $("#search-button").click(function () {
         valid("#search-term");
@@ -36,7 +36,7 @@ $(function () {
 
             {
                 q: $("#search-term").val(),
-                api_key: key // JD: 15
+                api_key: key 
             }
         ).done(function (result) {
             var img = $("<img/>").attr({
@@ -48,7 +48,7 @@ $(function () {
             $("#forImages").prepend("<p> Searched term " + ($("#search-term").val()) + " id: " + result.data[0].id + "</p>") 
             $("img").click(remove);
         });      
-    }); // JD: 10
+    }); 
     
     $("#endpoint-button").click(function () {
         valid("#search-term");
@@ -56,7 +56,7 @@ $(function () {
             "http://api.giphy.com/v1/gifs/" + $("#search-term").val(),
 
             {
-                api_key: key // JD: 15
+                api_key: key
             }
         ).done(function (result) {
             console.log(result);
@@ -76,7 +76,7 @@ $(function () {
             "http://api.giphy.com/v1/gifs/random",
 
             {
-                api_key: key // JD: 15
+                api_key: key 
             }
         ).done(function (result) {
             var img = $("<img/>").attr({
@@ -87,17 +87,17 @@ $(function () {
             $("#forImages").prepend("<p> Random Image id: " + result.data.id + "</p>");
             $("img").click(remove);
         });
-    }); // JD: 10
+    }); 
 
     $("#sticksearch-button").click(function () {
-        valid("#search-term"); // JD: 10
+        valid("#search-term");
 
         $.getJSON(
             "http://api.giphy.com/v1/stickers/search",
 
             {
                 q: $("#search-term").val(),
-                api_key: key // JD: 15
+                api_key: key 
             }
         ).done(function (result) {
             var img = $("<img/>").attr({
@@ -116,28 +116,28 @@ $(function () {
             "http://api.giphy.com/v1/stickers/trending",
 
             {
-                api_key: key // JD: 15
+                api_key: key
             }
         ).done(function (result) {
-            // JD: 18
-            result.data.forEach( function( imgObj, index ) { // JD: 12
-                if( index > 4 ) { // JD: 7
+           
+            result.data.forEach( function( imgObj, index ) { 
+                if( index > 4 ) { 
                     return;
-                } // JD: 10
+                }
 
                 $("<img/>").attr({
                     src: imgObj.images.original.url,
                     alt: "search result",
                     id: "imgObj" + index
-                }).click( function() { // JD: 12, 13
+                }).click( function() { 
                     $(this).remove();
-                }).appendTo($("#forImages")); // JD: 19
-                $("#forImages").append("<p> Trending Images id: " + imgObj.id + "</p>") 
+                }).prependTo($("#forImages"));
+                $("#forImages").prepend("<p> Trending Images id: " + imgObj.id + "</p>") 
             });
         });
-    }); // JD: 10
+    });
 
-    $("#clear-button").click( function() { // JD: 12
-        $("#forImages").empty(); // JD: 20
+    $("#clear-button").click( function() { 
+        $("#forImages").empty(); 
     });
 });
