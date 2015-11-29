@@ -2,29 +2,39 @@ $(function () {
     remove = function() {
         $(this).remove(); 
     }; 
+    var x = [];
     var key = "dc6zaTOxFJmzC" 
+    var term = ($("#search-term").val())
     $("#translate-button").click(function () {
         if(!$("#search-term").val()) { // JD: 7, 8, 9
-            alert("Enter a search term!")
+            alert("Enter a valid search term!");
         } // JD: 10
-
+        $(this).error(function() {
+            alert('Image does not exist !!');
+        });
+        alert($("#search-term"));
         $.getJSON(
             "http://api.giphy.com/v1/gifs/translate",
-
             {
                 s: $("#search-term").val(),
                 api_key: key // JD: 11
             }
-            
         ).done(function (result) {
-            console.log(result);
+           // if(result.length === undefined && result.)
+            alert(result.length)
+            x.push(result.data.images.original.url)
+            alert('hi')
+            alert(x)
+            if( $('result.data.images.original.url').is(':empty')){
+                alert(result.data.images.original.url)
+            } //doesn't work
             var img = $("<img/>").attr({
                 src: result.data.images.original.url,
                 alt: "search result"
             });
-
+            alert("img".length)
             $("#forImages").prepend(img);
-            $("#forImages").prepend("<p> id: " + result.data.id + "</p>") 
+            $("#forImages").prepend("<p> Translated term " + ($("#search-term").val()) + " id: " + result.data.id + "</p>") 
             $("img").click(remove);
         });
     }); // JD: 10
@@ -44,7 +54,7 @@ $(function () {
             });
 
             $("#forImages").prepend(img);
-            $("#forImages").prepend("<p> id: " + result.data[0].id + "</p>") 
+            $("#forImages").prepend("<p> Searched term " + ($("#search-term").val()) + " id: " + result.data[0].id + "</p>") 
             $("img").click(remove);
         });      
     }); // JD: 10
@@ -64,7 +74,7 @@ $(function () {
             });
 
             $("#forImages").prepend(img);
-            $("#forImages").prepend("<p> id: " + result.data.id + "</p>") 
+            $("#forImages").prepend("<p> Endpoint id: " + result.data.id + "</p>") 
             $("img").click(remove);
         });
     });
@@ -82,7 +92,7 @@ $(function () {
                 src: result.data.image_url
             });
             $("#forImages").prepend(img);
-            $("#forImages").prepend("<p> id: " + result.data.id + "</p>");
+            $("#forImages").prepend("<p> Random Image id: " + result.data.id + "</p>");
             $("img").click(remove);
         });
     }); // JD: 10
@@ -106,7 +116,7 @@ $(function () {
             });
 
             $("#forImages").prepend(img);
-            $("#forImages").prepend("<p> id: " + result.data[0].id + "</p>") 
+            $("#forImages").prepend("<p> Sticker Search " + ($("#search-term").val()) + " id: " + result.data[0].id + "</p>") 
             $("img").click(remove);
         });
     }); // JD: 10
@@ -121,7 +131,7 @@ $(function () {
         ).done(function (result) {
             // JD: 18
             result.data.forEach( function( imgObj, index ) { // JD: 12
-                if(index > 4) { // JD: 7
+                if( index > 4 ) { // JD: 7
                     return;
                 } // JD: 10
 
@@ -132,7 +142,7 @@ $(function () {
                 }).click( function() { // JD: 12, 13
                     $(this).remove();
                 }).appendTo($("#forImages")); // JD: 19
-                $("#forImages").append("<p> id: " + imgObj.id + "</p>") 
+                $("#forImages").append("<p> Trending Images id: " + imgObj.id + "</p>") 
             });
         });
     }); // JD: 10
