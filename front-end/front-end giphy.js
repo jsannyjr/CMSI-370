@@ -2,11 +2,14 @@ $(function () {
     remove = function() {
         $(this).remove(); 
     }; 
-    var x = [];
+    valid = function(){
+        if(! $(this).val()){
+            alert("Enter a valid search term!");
+        }
+    }
     var key = "dc6zaTOxFJmzC" 
-    var term = ($("#search-term").val())
     $("#translate-button").click(function () {
-        if(!$("#search-term").val()) { // JD: 7, 8, 9
+        if(! $( "#search-term" ).val() ) { // JD: 7, 8, 9
             alert("Enter a valid search term!");
         } // JD: 10
         $(this).error(function() {
@@ -40,6 +43,9 @@ $(function () {
     }); // JD: 10
 
     $("#search-button").click(function () {
+        if(! $( "#search-term" ).val() ) { // JD: 7, 8, 9
+            alert("Enter a valid search term!");
+        }
         $.getJSON(
             "http://api.giphy.com/v1/gifs/search",
 
@@ -60,6 +66,9 @@ $(function () {
     }); // JD: 10
     
     $("#endpoint-button").click(function () {
+        if(! $( "#search-term" ).val() ) { // JD: 7, 8, 9
+            alert("Enter a valid search term!");
+        }
         $.getJSON(
             "http://api.giphy.com/v1/gifs/" + $("#search-term").val(),
 
@@ -98,6 +107,9 @@ $(function () {
     }); // JD: 10
 
     $("#sticksearch-button").click(function () {
+        if(! $( "#search-term" ).val() ) { // JD: 7, 8, 9
+            alert("Enter a valid search term!");
+        }
         if($("#search-term").val() == "") { // JD: 7, 8, 9
             return;
         } // JD: 10
