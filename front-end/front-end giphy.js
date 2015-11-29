@@ -2,20 +2,16 @@ $(function () {
     remove = function() {
         $(this).remove(); 
     }; 
-    valid = function(){
-        if(! $(this).val()){
+    valid = function(term){
+        if(! $(term).val()){
             alert("Enter a valid search term!");
+            return;
         }
     }
     var key = "dc6zaTOxFJmzC" 
     $("#translate-button").click(function () {
-        if(! $( "#search-term" ).val() ) { // JD: 7, 8, 9
-            alert("Enter a valid search term!");
-        } // JD: 10
-        $(this).error(function() {
-            alert('Image does not exist !!');
-        });
-        alert($("#search-term"));
+        valid("#search-term");
+       // JD: 10
         $.getJSON(
             "http://api.giphy.com/v1/gifs/translate",
             {
@@ -23,19 +19,10 @@ $(function () {
                 api_key: key // JD: 11
             }
         ).done(function (result) {
-           // if(result.length === undefined && result.)
-            alert(result.length)
-            x.push(result.data.images.original.url)
-            alert('hi')
-            alert(x)
-            if( $('result.data.images.original.url').is(':empty')){
-                alert(result.data.images.original.url)
-            } //doesn't work
             var img = $("<img/>").attr({
                 src: result.data.images.original.url,
                 alt: "search result"
             });
-            alert("img".length)
             $("#forImages").prepend(img);
             $("#forImages").prepend("<p> Translated term " + ($("#search-term").val()) + " id: " + result.data.id + "</p>") 
             $("img").click(remove);
@@ -43,9 +30,7 @@ $(function () {
     }); // JD: 10
 
     $("#search-button").click(function () {
-        if(! $( "#search-term" ).val() ) { // JD: 7, 8, 9
-            alert("Enter a valid search term!");
-        }
+        valid("#search-term");
         $.getJSON(
             "http://api.giphy.com/v1/gifs/search",
 
@@ -66,9 +51,7 @@ $(function () {
     }); // JD: 10
     
     $("#endpoint-button").click(function () {
-        if(! $( "#search-term" ).val() ) { // JD: 7, 8, 9
-            alert("Enter a valid search term!");
-        }
+        valid("#search-term");
         $.getJSON(
             "http://api.giphy.com/v1/gifs/" + $("#search-term").val(),
 
@@ -107,12 +90,7 @@ $(function () {
     }); // JD: 10
 
     $("#sticksearch-button").click(function () {
-        if(! $( "#search-term" ).val() ) { // JD: 7, 8, 9
-            alert("Enter a valid search term!");
-        }
-        if($("#search-term").val() == "") { // JD: 7, 8, 9
-            return;
-        } // JD: 10
+        valid("#search-term"); // JD: 10
 
         $.getJSON(
             "http://api.giphy.com/v1/stickers/search",
