@@ -1,0 +1,16 @@
+/* Drawing area properties. */
+.drawing-area {
+    border: 10px solid black;
+    width: 750px;
+    height: 750px;
+}
+
+/* Box properties and their variants. */
+.box {
+    border: thin solid black;
+    position: absolute;
+}
+
+.box-highlight {
+    box-shadow: 0px 0px 6px #88F;
+}
