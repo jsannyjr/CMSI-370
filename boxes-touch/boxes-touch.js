@@ -43,7 +43,7 @@
                     touch.target.movingBox.offset({
                         top: touch.pageY - touch.target.deltaY
                     });
-                };
+                }
          //       curX = event.touch.pageX;
            //     curY = event.touch.pageY;
             }
@@ -91,28 +91,11 @@
             // in the middle of a move.
             touch.target.movingBox = jThis;
             touch.target.deltaX = touch.pageX - startOffset.left;
+            $("movingX").html(touch.pageX);
             touch.target.deltaY = touch.pageY - startOffset.top;
+            $("movingY").html(touch.pageY);
             //alert(touch.target.deltaX);
             //alert(deltaY + "ho");
-         if(Math.abs(curX) > Math.abs(curY)){
-            alert(deltaX);
-        }
-            /*if(touch.target.deltaX > 0){
-                alert("left");
-            }
-            else{
-                alert("right");
-            }*/
-        else{
-            alert(deltaY);/*
-
-            if(touch.target.deltaY > 0){
-                alert("up");
-            }
-            else{
-                alert("down");
-            }
-     */   }
         //}
         });
         // Eat up the event so that the drawing area does not
