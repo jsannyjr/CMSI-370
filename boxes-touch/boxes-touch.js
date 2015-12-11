@@ -67,7 +67,25 @@
             }
         });
     };
+    var drawAreaOffset = $("#drawing-area").offset();
+    var accX = 0;
+    var accY = 0;
+    var motion = function(event){
+        var info, xyz = "[X, Y, Z]";
 
+        // Grab the acceleration including gravity from the results
+        accel = data.accelerationIncludingGravity;
+        info = xyz.replace("X", Math.round(accel.x));
+        info = info.replace("Y", Math.round(accel.y));
+        info = info.replace("Z", Math.round(accel.z));
+        $("#moAccelGrav").html(info);
+
+        accelX = Math.round(acceleration.x);
+        accelY = Math.round(acceleration.y) * -1;
+
+        info = data.interval;
+        $("#moInterval").html(info);
+    } 
     /**
      * Indicates that an element is unhighlighted.
      */
