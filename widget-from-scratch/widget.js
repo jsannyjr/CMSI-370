@@ -45,4 +45,5 @@
   	});
   };
   $(".examples").widget();
+  $(".forImages").widget();
 } (jQuery));

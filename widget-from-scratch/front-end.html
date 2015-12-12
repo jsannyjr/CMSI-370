@@ -1,0 +1,52 @@
+<!doctype html>
+<html> 
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Justin Sanny's Giph Search</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel = "stylesheet" href = "background.css">
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <h3>It's the Giph of Giphing!</h3>
+        <h4> Some help:</h4>
+        <p> <b>Search and Translate</b>: Requires an input term. Translate is another way of searching but takes a less literal sense of the term. 
+            <br>
+            <b>Endpoint</b>: After an image is earched, a large ID is returned with the picture. Input the id into the search box and the gif of that id will be returned. 
+            <br>
+            <b>Search Sticker</b>: Requires an input term and returns the sticker of the term, may or may not be different than Search and/or Translate. 
+            <br>
+            <b>Fun Facts</b>: Click on the image to get rid of it and to clear all Endpoints and Gifs Click "Clear All :D"</p>
+        <h4> Get Started:</h4> 
+        <p> <b> Type in your desired term or use these examples: </b> Sample Terms: Sup, Netflix and Chill, Stressed Student. Endpoints Ids: 11m4UPaNxgWgyQ, 11EbCPxvUI6ynm, 12uhRWn6y5VXZ6.</p>
+      </div>
+
+      <div class="row">
+        <div class="form-group"> 
+          <label for="search-term">Enter a search term:</label>
+          <input type="text" class="form-control" id="search-term">
+          <button id="translate-button" class="btn btn-default">Translate!</button>
+          <button id="search-button" class="btn btn-default">Search!</button> 
+          <button id="endpoint-button" class="btn btn-default">Find A Giphy By Endpoint!</button>
+          <button id="random-button" class="btn btn-default">Random!</button>
+          <button id="sticksearch-button" class="btn btn-default">Search Sticker!</button>
+          <button id="trend-button" class="btn btn-default">What's Trending?!</button>
+          <button id="clear-button" class="btn btn-default">Clear All :D</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div id = "placehere"> </div>
+      <div class = "examples" id="forImages"></div>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="front-end giphy.js"></script>
+    <script src = "widget.js"> </script>
+  </body>
+</html>

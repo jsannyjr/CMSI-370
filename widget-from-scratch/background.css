@@ -1,0 +1,7 @@
+ body { 
+     background: url(https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQBRlmd3Lx2-NdUhW3S3SG9NBuYNTjm-n4DU58mNbrnN50CdHGXGQ) no-repeat center center fixed; /* JD: 3 */
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    }
