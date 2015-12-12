@@ -23,8 +23,8 @@
   			target.remove();
   			dragging.remove()
   		 }else{
-  		dragging.remove()
-  		$("body").unbind("mousemove", handler);
+  			dragging.remove()
+  			$("body").unbind("mousemove", handler);
   		}
   	}
   	var drop = function(event){
@@ -45,5 +45,4 @@
   	});
   };
   $(".examples").widget();
-  $(".forImages").widget();
 } (jQuery));

@@ -1,14 +1,4 @@
 (function ($) {
-    var velocityY = 0;
-    var friction = -1;
-    var min = 70;
-    var curX = 0;
-    var curY = 0;
-    var initialX = 0;
-    var initialY = 0;
-    $(function () {
-        $("#drawing-area").boxesTouch();
-    });
     var checkX = function (dist, offset, width) {
         var right = $("#drawing-area").width() + drawAreaOffset.left - width;
         var left = drawAreaOffset.left;
@@ -68,8 +58,8 @@
         });
     };
     var drawAreaOffset = $("#drawing-area").offset();
-    var accX = 0;
-    var accY = 0;
+    var accelX = 0;
+    var accelY = 0;
     var motion = function(event){
         var info, xyz = "[X, Y, Z]";
 
@@ -78,13 +68,13 @@
         info = xyz.replace("X", Math.round(accel.x));
         info = info.replace("Y", Math.round(accel.y));
         info = info.replace("Z", Math.round(accel.z));
-        $("#moAccelGrav").html(info);
+      //  $("#moAccelGrav").html(info);
 
         accelX = Math.round(acceleration.x);
         accelY = Math.round(acceleration.y) * -1;
 
         info = data.interval;
-        $("#moInterval").html(info);
+        //$("#moInterval").html(info);
     } 
     /**
      * Indicates that an element is unhighlighted.
@@ -93,6 +83,26 @@
         $(this).removeClass("box-highlight");
     };
 
+    var updateBoxes = function (timestamp) {
+       // $("#timestamp").html(timestamp);
+
+        $("div.box").each(function (index, box) {
+            var $box = $(box);
+            var offset = $box.offset();
+            
+            if (checkY(accelY, offset.top, $box.height())) {
+                offset.top -= accelY;
+            }
+            if (checkX(accelX,offset.left, $box.width())) {
+                offset.left -= accelX;
+            }
+            
+            $box.offset(offset);
+        });
+
+        lastTimestamp = timestamp;
+        window.requestAnimationFrame(updateBoxes);
+    }
     /**
      * Begins a box move sequence.
      */
@@ -109,9 +119,7 @@
             // in the middle of a move.
             touch.target.movingBox = jThis;
             touch.target.deltaX = touch.pageX - startOffset.left;
-            $("movingX").html(touch.pageX);
             touch.target.deltaY = touch.pageY - startOffset.top;
-            $("movingY").html(touch.pageY);
             //alert(touch.target.deltaX);
             //alert(deltaY + "ho");
         //}
