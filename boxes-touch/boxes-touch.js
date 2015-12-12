@@ -37,19 +37,28 @@
     var trackDrag = function (event) {
         $.each(event.changedTouches, function (index, touch) {
             // Don't bother if we aren't tracking anything.
-            if (touch.target.movingBox) {
+            if ( touch.target.movingBox ) {
                 //velocity += 1;
                 // Reposition the object
-                if (checkY(touch.target.deltaX, touch.pageX, touch.target.movingBox.width())){
+                if ( checkY(touch.target.deltaX, touch.pageX, touch.target.movingBox.width( ) ) ) {
                     touch.target.movingBox.offset({
                         left: touch.pageX - touch.target.deltaX
                     });
                 }
-                if (checkY(touch.target.deltaX, touch.pageX, touch.target.movingBox.width())){
-                    touch.target.movingBox.offset({
+                if ( checkY(touch.target.deltaX, touch.pageX, touch.target.movingBox.width( ) ) ) {
+                    touch.target.movingBox.offset( { 
                         top: touch.pageY - touch.target.deltaY
-                    });
+                    } );
                 }
+                 if ( touch.target["endTime"] - touch.target["startTime"] > 150) {
+                    touch.target["startTime"] = lastTimestamp;  
+                    touch.target["startX"] = touch.target.movingBox.offset( ).left;
+                    touch.target["startY"] = touch.target.movingBox.offset( ).top;
+                }
+
+                touch.target["endTime"] = lastTimestamp;
+                touch.target["endX"] = touch.target.movingBox.offset().left;
+                touch.target["endY"] = touch.target.movingBox.offset().top;
          //       curX = event.touch.pageX;
            //     curY = event.touch.pageY;
             }
@@ -66,6 +75,14 @@
     var endDrag = function (event) {
         $.each(event.changedTouches, function (index, touch) {
             if (touch.target.movingBox) {
+                var moveX = touch.target["endX"] - touch.target["startX"];
+                var moveY = touch.target["endY"] - touch.target["startY"];
+               // if (moveX/10 == moveY/10){
+                touch.target["magX"] = Math.abs(moveX/10);
+                touch.target["magY"] = Math.abs(moveY/10);
+                //}
+                touch.target["dirX"] = moveX > 0 ? 1 : -1;
+                touch.target["dirY"] = moveY> 0 ? 1 : -1;
                 //swipeLength = Math.round(Math.sqrt(Math.pow(curX - startX,2) + Math.pow(curY - startY,2)));
                 // Change state to "not-moving-anything" by clearing out
                 // touch.target.movingBox.
