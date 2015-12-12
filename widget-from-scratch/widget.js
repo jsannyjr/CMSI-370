@@ -2,17 +2,24 @@
 	var dragging;
 	var offset;
 	var target;
-	var pos = $("#trash").position();
+	var img = $('<img />', { 
+  		id: "Trash",
+ 	 	src: "http://sweetclipart.com/multisite/sweetclipart/files/imagecache/middle/trash_can.png" ,
+  		alt: "Trash-can",
+  		width: "100",
+  		height: "150"
+    });
+	img.appendTo($("#placehere"));
 	var handler = function(event){
   		dragging.offset({left:event.pageX, top:event.pageY});
 	};
   	var cleanUp = function(event){
+  		var pos = $("#Trash").offset();
   		var offset = $(this).offset();
-  		 console.log(offset.left);
-  		// console.log(pos.left);
-  		 console.log(offset.top);
-  		// console.log(pos.top);
-  		 if ((200 >= offset.left && 88 <= offset.left) && (290 >= offset.top && 130 <= offset.top)){
+  		console.log(Math.abs(pos.left-offset.left));
+  		console.log(Math.abs(pos.top-offset.top));
+  		console.log("Position" + pos.top);
+  		 if ((100 >= Math.abs(pos.left-offset.left) && 200 >= Math.abs(pos.top-offset.top))){
   			target.remove();
   			dragging.remove()
   		 }else{
@@ -23,16 +30,6 @@
   	var drop = function(event){
   		dragging.remove();
   	}
-  	//var trash = function() {
-   		//$(".example").dragging();
-
-    	//$("#trash").droppable({
-        	//over: function(event, ui) {
-            	//ui.dragging.remove();
-        //	}
-    	//});
-	//}	
-
   $.fn.widget= function(){
   	this.mousedown(function (event){
   		target = event.target;
