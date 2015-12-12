@@ -203,6 +203,7 @@
             .find("div.box").each(function (index, element) {
                 element.addEventListener("touchstart", startMove, false);
                 element.addEventListener("touchend", unhighlight, false);
+                box(element, index);
             });
     };
 
