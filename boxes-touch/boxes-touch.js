@@ -115,16 +115,23 @@
         $(this).removeClass("box-highlight");
     };
 
-    var updateBoxes = function (timeStamp) {
+    var updateBoxes = function (time) {
        //if(element.movingBox === null) {
             //console.log(I++);
-            var pos = $(element).offset();
-            var PosX = pos.left;
-            var PosY = pos.top;
+        $("div.box").each(function (index, box) {
+            var $box = $(box);
+            var off = $box.offset();
+            var offTop = box.magY * box.dirY;
+            var offLeft = box.magX * box.dirX;
+            //var grav = time;
             //console.log(pos);
-            if (oldX !== newX){
-                element.dX = element.dX * -1;
+            if (checkY(offLeft, offset.left, $box.width())){
+                offset.left += offTop
 
+            }
+            else{
+                box.magX *= .5; //im not goign to ask about the physics for my dad. 
+                box.directionY = -box.dirY;
             }
             if (oldY !== newY){
                 element.dY = element.dY * -1;
@@ -142,7 +149,9 @@
                 "top": newY
             });
    //     }
-    },
+    }
+}
+     
     /**
      * Begins a box move sequence.
      */
