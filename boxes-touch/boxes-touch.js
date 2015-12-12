@@ -1,4 +1,20 @@
 (function ($) {
+    $(function () {
+        $("#drawing-area").boxesTouch();
+    });
+    var box = function (property, index){
+        property["index"] = index;
+        property["startX"] = 0; //starting values
+        property["startY"] = 0;
+        property["endX"] = 0;
+        property["endY"] = 0; //shows the ending 
+        property["dirX"] = 0;
+        property["dirY"] = 0;
+        property["startTime"] = 0;
+        property["endTime"] = 0;
+        property["magX"] = 0; //acceleration
+        property["magY"] = 0;
+    }
     var checkX = function (dist, offset, width) {
         var right = $("#drawing-area").width() + drawAreaOffset.left - width;
         var left = drawAreaOffset.left;
@@ -68,13 +84,13 @@
         info = xyz.replace("X", Math.round(accel.x));
         info = info.replace("Y", Math.round(accel.y));
         info = info.replace("Z", Math.round(accel.z));
-      //  $("#moAccelGrav").html(info);
+
 
         accelX = Math.round(acceleration.x);
         accelY = Math.round(acceleration.y) * -1;
 
         info = data.interval;
-        //$("#moInterval").html(info);
+
     } 
     /**
      * Indicates that an element is unhighlighted.
@@ -83,26 +99,44 @@
         $(this).removeClass("box-highlight");
     };
 
-    var updateBoxes = function (timestamp) {
-       // $("#timestamp").html(timestamp);
+     updateBoxes : function (timeStamp) {
+       if(element.movingBox === null) {
+            //console.log(I++);
+            var pos = $(element).offset();
+            var PosX = pos.left;
+            var PosY = pos.top;
+            var dt = Math.max(BoxesTouch.dT, 0.01);
+            element["dX"]*=0.999;
+            element["dY"]*=0.999;
+            element["dX"]+= dt*BoxesTouch.accelX/2;
+            element["dY"]+= dt*BoxesTouch.accelY/2;
+            var oldY = y + 1/dt*element["dY"];
+            var oldX = x + 1/dt*element["dX"];
 
-        $("div.box").each(function (index, box) {
-            var $box = $(box);
-            var offset = $box.offset();
-            
-            if (checkY(accelY, offset.top, $box.height())) {
-                offset.top -= accelY;
-            }
-            if (checkX(accelX,offset.left, $box.width())) {
-                offset.left -= accelX;
-            }
-            
-            $box.offset(offset);
-        });
+            var newX = Math.max(Math.min(oldX, $(".drawing-area").width()-$(element).width()), 0);
+            var newY = Math.max(Math.min(oldY, $(".drawing-area").height()-$(element).height()), 0);
+            //console.log(pos);
+            if (oldX !== newX){
+                element.dX = element.dX * -1;
 
-        lastTimestamp = timestamp;
-        window.requestAnimationFrame(updateBoxes);
-    }
+            }
+            if (oldY !== newY){
+                element.dY = element.dY * -1;
+                //console.log("hi");
+            }
+
+            
+            
+
+            //console.log(element.dX, element.dY);
+
+            $(element).offset({
+
+                "left": newX, 
+                "top": newY
+            });
+        }
+    },
     /**
      * Begins a box move sequence.
      */
