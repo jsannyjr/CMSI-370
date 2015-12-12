@@ -125,18 +125,25 @@
             var offLeft = box.magX * box.dirX;
             //var grav = time;
             //console.log(pos);
-            if (checkY(offLeft, offset.left, $box.width())){
-                offset.left += offTop
+            if ( checkY(offLeft, offset.left, $box.width( ) ) ) {
+                offset.left += offLeft
 
             }
             else{
                 box.magX *= .5; //im not goign to ask about the physics for my dad. 
-                box.directionY = -box.dirY;
+                box.dirX = -box.dirX;
             }
-            if (oldY !== newY){
-                element.dY = element.dY * -1;
-                //console.log("hi");
+            if( checkX(offTop, offset.left, $box.height( ) ) ) {
+                offset.top += offTop;
             }
+            else{
+                box.magY *=.5; 
+                box.dirY = -box.dirY;
+            }
+            $box.offset( off) ;
+        });
+        windows.requestAnimationFrame(updateBoxes); //what does this even do....
+    }
 
             
             
@@ -151,7 +158,27 @@
    //     }
     }
 }
-     
+      if (checkY(offsetTop, offset.top, $box.height())) {
+                offset.top += offsetTop;
+            }
+            else { 
+                box.magnitudeY *= .7;
+                box.directionY = -box.directionY;
+            }
+            if (checkX(offsetLeft,offset.left, $box.width())) {
+                offset.left += offsetLeft;
+            }
+            else { 
+                box.magnitudeX *= .7;
+                box.directionX = -box.directionX;
+            }
+
+            $box.offset(offset);
+        });
+
+        lastTimestamp = timestamp;
+        window.requestAnimationFrame(updateBoxes);
+    }
     /**
      * Begins a box move sequence.
      */
