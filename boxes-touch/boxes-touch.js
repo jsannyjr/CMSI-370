@@ -57,8 +57,8 @@
                 }
 
                 touch.target["endTime"] = lastTimestamp;
-                touch.target["endX"] = touch.target.movingBox.offset().left;
-                touch.target["endY"] = touch.target.movingBox.offset().top;
+                touch.target["endX"] = touch.target.movingBox.offset( ).left;
+                touch.target["endY"] = touch.target.movingBox.offset( ).top;
          //       curX = event.touch.pageX;
            //     curY = event.touch.pageY;
             }
@@ -91,24 +91,23 @@
         });
     };
     var drawAreaOffset = $("#drawing-area").offset();
-    var accelX = 0;
-    var accelY = 0;
-    var motion = function(event){
-        var info, xyz = "[X, Y, Z]";
 
-        // Grab the acceleration including gravity from the results
-        accel = data.accelerationIncludingGravity;
-        info = xyz.replace("X", Math.round(accel.x));
-        info = info.replace("Y", Math.round(accel.y));
-        info = info.replace("Z", Math.round(accel.z));
+    // var motion = function(event){
+    //     var info, xyz = "[X, Y, Z]";
+
+    //     // Grab the acceleration including gravity from the results
+    //     accel = data.accelerationIncludingGravity;
+    //     info = xyz.replace("X", Math.round(accel.x));
+    //     info = info.replace("Y", Math.round(accel.y));
+    //     info = info.replace("Z", Math.round(accel.z));
 
 
-        accelX = Math.round(acceleration.x);
-        accelY = Math.round(acceleration.y) * -1;
+    //     accelX = Math.round(acceleration.x);
+    //     accelY = Math.round(acceleration.y) * -1;
 
-        info = data.interval;
+    //     info = data.interval;
 
-    } 
+    // } 
     /**
      * Indicates that an element is unhighlighted.
      */
@@ -116,22 +115,12 @@
         $(this).removeClass("box-highlight");
     };
 
-     updateBoxes : function (timeStamp) {
-       if(element.movingBox === null) {
+    var updateBoxes = function (timeStamp) {
+       //if(element.movingBox === null) {
             //console.log(I++);
             var pos = $(element).offset();
             var PosX = pos.left;
             var PosY = pos.top;
-            var dt = Math.max(BoxesTouch.dT, 0.01);
-            element["dX"]*=0.999;
-            element["dY"]*=0.999;
-            element["dX"]+= dt*BoxesTouch.accelX/2;
-            element["dY"]+= dt*BoxesTouch.accelY/2;
-            var oldY = y + 1/dt*element["dY"];
-            var oldX = x + 1/dt*element["dX"];
-
-            var newX = Math.max(Math.min(oldX, $(".drawing-area").width()-$(element).width()), 0);
-            var newY = Math.max(Math.min(oldY, $(".drawing-area").height()-$(element).height()), 0);
             //console.log(pos);
             if (oldX !== newX){
                 element.dX = element.dX * -1;
@@ -152,7 +141,7 @@
                 "left": newX, 
                 "top": newY
             });
-        }
+   //     }
     },
     /**
      * Begins a box move sequence.
