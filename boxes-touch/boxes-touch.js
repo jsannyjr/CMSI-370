@@ -145,9 +145,6 @@
         windows.requestAnimationFrame(updateBoxes); //what does this even do....
     }
 
-            
-            
-
             //console.log(element.dX, element.dY);
 
            // $(element).offset({
@@ -156,13 +153,18 @@
                // "top": newY
             //});
    //     }
-    }
-}
     /**
      * Begins a box move sequence.
      */
     var startMove = function (event) {
         $.each(event.changedTouches, function (index, touch) {
+            touch.target["startX"] = 0; //starting values
+            touch.target["startY"] = 0;
+            touch.target["endX"] = 0;
+            touch.target["endY"] = 0; //shows the ending 
+            touch.target["mag"] = 0;
+            touch.target["dirX"] = 0;
+            touch.target["dirY"] = 0;
             // Highlight the element.
             $(touch.target).addClass("box-highlight");
 
