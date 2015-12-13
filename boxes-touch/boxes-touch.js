@@ -2,6 +2,21 @@
     $(function () {
         $("#drawing-area").boxesTouch();
     });
+    var offset;
+    var accX;
+    var accY;
+    var movement;
+
+    // window.ondevicemotion = function(event) {
+
+    //     accX = event.accelerationIncludingGravity.x / 10;  
+    //     accY = event.accelerationIncludingGravity.y / 10;  
+            
+    //     movement = 10;
+            
+    //     xA = -(accX / 10) * movement;
+    //     yA = -(accY / 10) * movement;
+    // }
     var box = function (property, index){
         property["index"] = index;
         property["startX"] = 0; //starting values
@@ -38,6 +53,10 @@
         $.each(event.changedTouches, function (index, touch) {
             // Don't bother if we aren't tracking anything.
             if ( touch.target.movingBox ) {
+                touch.target.movingBox.offset({
+                    left: touch.pageX - touch.target.deltaX,
+                    top: touch.pageY - touch.target.deltaY
+                });
                 //velocity += 1;
                 // Reposition the object
                 if ( checkY(touch.target.deltaX, touch.pageX, touch.target.movingBox.width( ) ) ) {
@@ -93,19 +112,13 @@
     var drawAreaOffset = $("#drawing-area").offset();
 
     // var motion = function(event){
-    //     var info, xyz = "[X, Y, Z]";
 
-    //     // Grab the acceleration including gravity from the results
-    //     accel = data.accelerationIncludingGravity;
-    //     info = xyz.replace("X", Math.round(accel.x));
-    //     info = info.replace("Y", Math.round(accel.y));
-    //     info = info.replace("Z", Math.round(accel.z));
+    //   // Grab the acceleration including gravity from the results
+    //     accel = event.accelerationIncludingGravity;
+    //     accX = Math.round(accel.x);
+    //     accY = Math.round(accel.y);
 
-
-    //     accelX = Math.round(acceleration.x);
-    //     accelY = Math.round(acceleration.y) * -1;
-
-    //     info = data.interval;
+    //     info = event.interval;
 
     // } 
     /**
@@ -115,35 +128,47 @@
         $(this).removeClass("box-highlight");
     };
 
+    var FRAME_RATE = 250;
+    var MS_PER_FRAME =1000;
+    var iter = MS_PER_FRAME/FRAME_RATE;
+    var lastTimestamp = 0; 
     var updateBoxes = function (time) {
-       //if(element.movingBox === null) {
-            //console.log(I++);
+        var tpast = time - lastTimestamp;
+        if(tpast > iter){
         $("div.box").each(function (index, box) {
             var $box = $(box);
             var off = $box.offset();
             var offTop = box.magY * box.dirY;
             var offLeft = box.magX * box.dirX;
+            off.left += box.velocity.x * tpast;
+            off.top += box.velocity.y * tpast;
+            box.velocity.x += box.acceleration.accX * tpast; 
+            box.velocity.y += box.acceleration.accY * tpast;
             //var grav = time;
             //console.log(pos);
-            if ( checkY(offLeft, offset.left, $box.width( ) ) ) {
-                offset.left += offLeft
-
-            }
-            else{
-                box.magX *= .5; //im not goign to ask about the physics for my dad. 
-                box.dirX = -box.dirX;
-            }
-            if( checkX(offTop, offset.left, $box.height( ) ) ) {
-                offset.top += offTop;
-            }
-            else{
-                box.magY *=.5; 
-                box.dirY = -box.dirY;
-            }
-            $box.offset( off);
-        });
-        windows.requestAnimationFrame(updateBoxes); //what does this even do....
-    }
+            // if ( checkY(offLeft, offset.left, $box.width( ) ) ) {
+            //     offset.left += element.velocity.x * tpast;
+            //     offset.top += element.velocity.y * tpast;
+            //     element.velocity.x += element.acceleration.accX * tpast; 
+            //     element.velocity.y += element.acceleration.accY * tpast;
+            // }
+            // else{
+            //     box.magX *= .5; //im not goign to ask about the physics for my dad. 
+            //     box.dirX = -box.dirX;
+            // }
+            // if( checkX(offTop, offset.left, $box.height( ) ) ) {
+            //     offset.top += offTop;
+            // }
+            // else{
+            //     box.magY *=.5; 
+            //     box.dirY = -box.dirY;
+            // }
+           // $box.offset( off);
+            }); 
+        lastTimestamp = time; 
+        }
+        window.requestAnimationFrame(updateBoxes);
+    };
 
             //console.log(element.dX, element.dY);
 
@@ -203,12 +228,39 @@
             .find("div.box").each(function (index, element) {
                 element.addEventListener("touchstart", startMove, false);
                 element.addEventListener("touchend", unhighlight, false);
-                box(element, index);
+                element.velocity = {x : 0, y : 0};
+                element.acceleration = {accX : 0, accY : 0};
+                //box(element, index);
             });
+            window.addEventListener("devicemotion", function (event) {
+                gravity(jQueryElements.find("div.box"), event); }, true);
     };
-
+    var gravity = function(element, event){
+        element.each(function (index, element){
+            var grav = event.accelerationIncludingGravity;
+            var gravOffset = element.movingBox.offset();
+            var left = gravOffset.left + element.velocity.y;
+            var top = gravOffset.top + element.velocity.x;
+            element.movingBox.offset({
+                left: left,
+                top: top
+            })
+            console.log("hi");
+            element.velocity.x += grav.x * .02;
+            element.velocity.y += grav.y * 02;
+        });
+    }
     $.fn.boxesTouch = function () {
+        var element = $("#drawing-area");
+        var elemntOffset = element.offset();
         setDrawingArea(this);
+        window.requestAnimationFrame(updateBoxes);
+        window.addEventListener('devicemotion', function ( event ){
+            $("div.box").each( function ( index, element){
+                element.acceleration.accX = event.accelerationIncludingGravity.x / 10000;
+                element.acceleration.accY = -(event.accelerationIncludingGravity.y / 10000);
+            });
+        });
     };
 
 }(jQuery));

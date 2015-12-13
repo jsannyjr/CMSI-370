@@ -1,5 +1,5 @@
 <!doctype html>
-<html> <!-- JD: 1 -->
+<html> 
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <link rel = "stylesheet" href = "background.css">
- <!-- JD: 3 -->
+
   </head>
   <body>
     <div class="container">
@@ -27,11 +27,11 @@
       </div>
 
       <div class="row">
-        <div class="form-group"> <!-- JD: 3 -->
+        <div class="form-group"> 
           <label for="search-term">Enter a search term:</label>
           <input type="text" class="form-control" id="search-term">
           <button id="translate-button" class="btn btn-default">Translate!</button>
-          <button id="search-button" class="btn btn-default">Search!</button> <!-- JD: 3 -->
+          <button id="search-button" class="btn btn-default">Search!</button> 
           <button id="endpoint-button" class="btn btn-default">Find A Giphy By Endpoint!</button>
           <button id="random-button" class="btn btn-default">Random!</button>
           <button id="sticksearch-button" class="btn btn-default">Search Sticker!</button>
@@ -40,11 +40,13 @@
         </div>
       </div>
     </div>
-    <div class="col-md-12"> <!-- JD: 3, 5 -->
-      <div id="forImages"></div>
-    </div> <!-- JD: 3 -->
+    <div class="col-md-12">
+      <div id = "placehere"> </div>
+      <div class = "examples" id="forImages" draggable = "false"></div>
+    </div>
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="front-end giphy.js"></script> <!-- JD: 6 -->
+    <script src="front-end giphy.js"></script>
+    <script src = "widget.js"> </script>
   </body>
 </html>

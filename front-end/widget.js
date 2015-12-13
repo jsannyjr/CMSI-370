@@ -20,14 +20,10 @@
   			dragging.remove()
   		 }else{
   			dragging.remove()
-  			//$("body").unbind("mousemove", handler);
   		}
   	}
-  	// var drop = function(event){
-  	// 	dragging.remove();
-  	// }
+
   $.fn.widget= function(){
-    console.log("dragging");
   	this.mousedown(function (event){
   		target = event.target;
   		dragging = $(target).clone()
