@@ -1,12 +1,4 @@
 (function ($) {
-    var veloX; 
-    var veloY;
-    var gravX = 0;
-    var gravY = 0; 
-    var prevT;
-    var nextT;
-    var posX;
-    var posY;
     var lasttimeStamp = 0;
     var frameRate = 120; 
     var MILLI_SECONDS_BETWEEN_FRAMES = 1000/frameRate;
@@ -32,12 +24,6 @@
                 touch.target.velocity.y = touch.pageY - touch.target.lastY;
                 touch.target.lastX = touch.pageX;
                 touch.target.lastY = touch.pageY;
-                // posX = location.left;
-                // posY = location.right;
-                // console.log(posX);
-              //  console.log(touch.pageX);
-                //console.log(touch.target.movingBox.height());
-               // console.log("Top" + top);
             }
         });
 
@@ -92,45 +78,42 @@
         // deal with it.
         event.stopPropagation();
     };
-        var leftBoundary = $("#drawing-area").offset().left;
-        var rightBoundary = leftBoundary + $("#drawing-area").width();
-        var topBoundary = $("#drawing-area").offset().top;
-        var bottomBoundary = topBoundary + $("#drawing-area").height();
+        var leftB = $("#drawing-area").offset().left;
+        var rightB = leftB + $("#drawing-area").width();
+        var topB = $("#drawing-area").offset().top;
+        var bottomB = topB + $("#drawing-area").height();
         var updateBoxes = function (timestamp){
         var deltaT = timestamp - lasttimeStamp;
-        //console.log(boxes);
 
         boxes.forEach(function (element){
-           // console.log($(element));
+
             if(element.movingBox == null || element.movingBox == undefined) {
                 var off = $(element).offset();
                 off.left += element.velocity.x * deltaT/20;
                 off.top += element.velocity.y * deltaT/20;
-                element.velocty.x = .5 * deltaT/10;
-                //element.velocity.x += element.acceleration.x * deltaT/10;
-                //element.velocity.y += element.acceleration.y * deltaT/10;
-               // console.log(off.top);
-                $(element).offset(off);
+                element.velocity.x += element.acceleration.x * deltaT/5;
+                element.velocity.y += element.acceleration.y * deltaT/5;
+                
                 if(off.top < topB) {
                     off.top = topB;
-                    element.velocity.y *= -0.7;
+                    element.velocity.y *= -0.6;
                 }
 
                 if(off.top + $(element).height() > bottomB) {
                     off.top = bottomB - $(element).height();
-                    element.velocity.y *= -0.7;
+                    element.velocity.y *= -0.6;
                 }
 
                 if(off.left < leftB) {
                     off.left = leftB;
-                    element.velocity.x *= -0.7;
+                    element.velocity.x *= -0.6;
                 }
 
                 if(off.left + $(element).width() > rightB) {
                     off.left = rightB - $(element).width();
-                    element.velocity.x *= -0.7;
+                    element.velocity.x *= -0.6;
                 }
-
+                $(element).offset(off);
             }
         });
         lasttimeStamp = timestamp;
@@ -176,5 +159,4 @@
         });
 
     };
-       // window.addEventListener("motion", )
 }(jQuery));
