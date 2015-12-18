@@ -24,6 +24,18 @@
                 touch.target.velocity.y = touch.pageY - touch.target.lastY;
                 touch.target.lastX = touch.pageX;
                 touch.target.lastY = touch.pageY;
+                if(touch.target.lastY > bottomB){
+                    touch.target.lastY = bottomB;
+                }
+                if(touch.target.lastX > rightB){
+                    touch.target.lastX = rightB;
+                }
+                if(touch.target.lastY < topB){
+                    touch.target.lastY = topB;
+                }
+                if(touch.target.lastX < leftB){
+                    touch.target.lastX = leftB;
+                }
             }
         });
 
@@ -93,7 +105,12 @@
                 off.top += element.velocity.y * deltaT/20;
                 element.velocity.x += element.acceleration.x * deltaT/5;
                 element.velocity.y += element.acceleration.y * deltaT/5;
-                
+                if(element.velocity.x < 1.0 && element.velocity.x > -1.0){
+                    element.velocity.x = 0.0;
+                }
+                if(element.velocity.y < 1.0 && element.velocity.y > -1.0){
+                    element.velocity.y = 0.0; 
+                }
                 if(off.top < topB) {
                     off.top = topB;
                     element.velocity.y *= -0.6;
@@ -117,7 +134,6 @@
             }
         });
         lasttimeStamp = timestamp;
-      //  console.log(deltaT);
         window.requestAnimationFrame(updateBoxes);
     };
     /**
