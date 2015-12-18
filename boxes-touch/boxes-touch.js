@@ -11,6 +11,10 @@
     var frameRate = 120; 
     var MILLI_SECONDS_BETWEEN_FRAMES = 1000/frameRate;
     var boxes = [];
+    var leftB = $("#drawing-area").offset().left;
+    var rightB = $("#drawing-area").width() + leftB;
+    var topB = $("#drawing-area").offset().top;
+    var bottomB = $("#drawing-area").height() + topB;
     /**
      * Tracks a box as it is rubberbanded or moved across the drawing area.
      */
@@ -88,7 +92,11 @@
         // deal with it.
         event.stopPropagation();
     };
-       var updateBoxes = function (timestamp){
+        var leftBoundary = $("#drawing-area").offset().left;
+        var rightBoundary = leftBoundary + $("#drawing-area").width();
+        var topBoundary = $("#drawing-area").offset().top;
+        var bottomBoundary = topBoundary + $("#drawing-area").height();
+        var updateBoxes = function (timestamp){
         var deltaT = timestamp - lasttimeStamp;
         //console.log(boxes);
 
@@ -98,11 +106,31 @@
                 var off = $(element).offset();
                 off.left += element.velocity.x * deltaT/20;
                 off.top += element.velocity.y * deltaT/20;
-                element.velocity.x += element.acceleration.x * deltaT/10;
-                element.velocity.y += element.acceleration.y * deltaT/10;
+                element.velocty.x = .5 * deltaT/10;
+                //element.velocity.x += element.acceleration.x * deltaT/10;
+                //element.velocity.y += element.acceleration.y * deltaT/10;
                // console.log(off.top);
                 $(element).offset(off);
-                
+                if(off.top < topB) {
+                    off.top = topB;
+                    element.velocity.y *= -0.7;
+                }
+
+                if(off.top + $(element).height() > bottomB) {
+                    off.top = bottomB - $(element).height();
+                    element.velocity.y *= -0.7;
+                }
+
+                if(off.left < leftB) {
+                    off.left = leftB;
+                    element.velocity.x *= -0.7;
+                }
+
+                if(off.left + $(element).width() > rightB) {
+                    off.left = rightB - $(element).width();
+                    element.velocity.x *= -0.7;
+                }
+
             }
         });
         lasttimeStamp = timestamp;
