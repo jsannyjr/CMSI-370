@@ -1,4 +1,8 @@
 (function ($) {
+    var veloX; 
+    var veloY;
+    var gravX;
+    var gravY; 
     /**
      * Tracks a box as it is rubberbanded or moved across the drawing area.
      */
@@ -6,11 +10,21 @@
         $.each(event.changedTouches, function (index, touch) {
             // Don't bother if we aren't tracking anything.
             if (touch.target.movingBox) {
+                console.log("hi");
                 // Reposition the object.
                 touch.target.movingBox.offset({
                     left: touch.pageX - touch.target.deltaX,
                     top: touch.pageY - touch.target.deltaY
                 });
+                $("#box").animate({
+
+                    left: "-=50px"
+                },
+                "slow"
+                );
+              //  console.log(touch.pageX);
+                //console.log(touch.target.movingBox.height());
+               // console.log("Top" + top);
             }
         });
 
@@ -21,6 +35,15 @@
     /**
      * Concludes a drawing or moving sequence.
      */
+    var gravity = function(event){
+        console.log("hi");
+        $.each(event.changedTouches, function (index, touch){
+            console.log("hello");
+            if(touch.target.movingBox == null){
+                top: "300px";
+            }
+        })
+    }
     var endDrag = function (event) {
         $.each(event.changedTouches, function (index, touch) {
             if (touch.target.movingBox) {
@@ -55,6 +78,7 @@
             touch.target.movingBox = jThis;
             touch.target.deltaX = touch.pageX - startOffset.left;
             touch.target.deltaY = touch.pageY - startOffset.top;
+            console.log(touch.target.deltaY);
         });
 
         // Eat up the event so that the drawing area does not
@@ -75,7 +99,9 @@
             .each(function (index, element) {
                 element.addEventListener("touchmove", trackDrag, false);
                 element.addEventListener("touchend", endDrag, false);
+                element.addEventListener("gravity", gravity, false);
             })
+
 
             .find("div.box").each(function (index, element) {
                 element.addEventListener("touchstart", startMove, false);
@@ -86,6 +112,9 @@
     $.fn.boxesTouch = function () {
         setDrawingArea(this);
     };
+    $(function () {
+    $("#drawing-area").boxesTouch();
+    });
 }(jQuery));
 // (function ($) {
 //     $(function () {

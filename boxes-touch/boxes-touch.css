@@ -1,5 +1,8 @@
 /* Drawing area properties. */
-div#drawing-area {
+#drawing-area {
+	border-style: solid;
+	border: 1px solid black;
+	width:0 512px;
     position: relative;
     height: 600px;
     user-select: none;
