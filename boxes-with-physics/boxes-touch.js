@@ -1,12 +1,13 @@
 (function ($) {
     var lasttimeStamp = 0;
     var frameRate = 120; 
-    var MILLI_SECONDS_BETWEEN_FRAMES = 1000/frameRate;
+    var MILLI_SECONDS_BETWEEN_FRAMES = 1000/frameRate; // JD: 3
     var boxes = [];
     var leftB = $("#drawing-area").offset().left;
     var rightB = $("#drawing-area").width() + leftB;
     var topB = $("#drawing-area").offset().top;
     var bottomB = $("#drawing-area").height() + topB;
+    // JD: 4
     /**
      * Tracks a box as it is rubberbanded or moved across the drawing area.
      */
@@ -15,24 +16,25 @@
             // Don't bother if we aren't tracking anything.
             if (touch.target.movingBox) {
                 // Reposition the object.
-                touch.target.movingBox.offset({
+                touch.target.offset = { // JD: 9
                     left: touch.pageX - touch.target.deltaX,
                     top: touch.pageY - touch.target.deltaY
-                });
+                };
+                touch.target.movingBox.offset(touch.target.offset); // JD: 9
                 touch.target.velocity.x = touch.pageX - touch.target.lastX;
                 touch.target.velocity.y = touch.pageY - touch.target.lastY;
                 touch.target.lastX = touch.pageX;
                 touch.target.lastY = touch.pageY;
-                if(touch.target.lastY > bottomB ) {
+                if(touch.target.lastY > bottomB ) { // JD: 5
                     touch.target.lastY = bottomB;
                 }
-                if(touch.target.lastX > rightB ) {
+                if(touch.target.lastX > rightB ) { // JD: 5
                     touch.target.lastX = rightB;
                 }
-                if(touch.target.lastY < topB){
+                if(touch.target.lastY < topB){ // JD: 5, 6
                     touch.target.lastY = topB;
                 }
-                if(touch.target.lastX < leftB){
+                if(touch.target.lastX < leftB){ // JD: 5, 6
                     touch.target.lastX = leftB;
                 }
             }
@@ -84,30 +86,30 @@
         // deal with it.
         event.stopPropagation();
     };
-        var updateBoxes = function (timestamp){
+        var updateBoxes = function (timestamp){ // JD: 7
         var deltaT = timestamp - lasttimeStamp;
-        boxes.forEach(function (element){
-            if(element.movingBox == null || element.movingBox == undefined ) {
-                var off = $(element).offset();
-                off.left += element.velocity.x * deltaT / 20;
+        boxes.forEach(function (element){ // JD: 6
+            if(element.movingBox == null || element.movingBox == undefined ) { // JD: 5
+                var off = element.offset; // JD: 9
+                off.left += element.velocity.x * deltaT / 20; // JD: 8
                 off.top += element.velocity.y * deltaT / 20;
-                element.velocity.x += element.acceleration.x * deltaT / 10;
+                element.velocity.x += element.acceleration.x * deltaT / 10; // JD: 8
                 element.velocity.y += element.acceleration.y * deltaT / 10;
                 if(off.top < topB ) {
                     off.top = topB;
-                    element.velocity.y *= -0.6;
+                    element.velocity.y *= -0.6; // JD: 8
                 }
-                if(off.top + $(element).height() > bottomB ) {
+                if(off.top + $(element).height() > bottomB ) { // JD: 5
                     off.top = bottomB - $( element ).height( );
                     element.velocity.y *= -0.6;
                 }
 
-                if(off.left < leftB) {
+                if(off.left < leftB) { // JD: 5
                     off.left = leftB;
                     element.velocity.x *= -0.6;
                 }
 
-                if(off.left + $(element).width() > rightB ) {
+                if(off.left + $(element).width() > rightB ) { // JD: 5
                     off.left = rightB - $( element ).width();
                     element.velocity.x *= -0.6;
                 }
@@ -116,7 +118,7 @@
         });
         lasttimeStamp = timestamp;
         window.requestAnimationFrame(updateBoxes);
-    };
+    }; // JD: 4
     /**
      * Sets up the given jQuery collection as the drawing area(s).
      */
@@ -137,8 +139,9 @@
                 element.addEventListener("touchend", unhighlight, false);
                 element.velocity = {x : 0, y : 0};
                 element.acceleration = {x : 0, y : 0};
+                element.offset = $(element).offset(); // JD: 9
             });
-    };
+    }; // JD: 4
     $.fn.boxesTouch = function () {
         var element = $("#drawing-area");
         var elementOffset = element.offset();
@@ -147,7 +150,7 @@
 
         window.addEventListener('devicemotion', function (event) {
             boxes.forEach(function (element) {
-                element.acceleration.x = event.accelerationIncludingGravity.x  / 1000; 
+                element.acceleration.x = event.accelerationIncludingGravity.x  / 1000; // JD: 8
                 element.acceleration.y = -(event.accelerationIncludingGravity.y / 1000);
             });
         });
