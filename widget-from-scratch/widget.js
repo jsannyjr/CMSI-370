@@ -8,13 +8,14 @@
   		width: "100",
   		height: "150"
     });
-	img.appendTo($("#placehere"));
-	var handler = function(event){
-  		dragging.offset({left:event.pageX, top:event.pageY});
+	img.appendTo($("#placehere")); // JD: 2
+	var handler = function(event){ // JD: 3
+  		dragging.offset({left:event.pageX, top:event.pageY}); // JD: 4
 	};
   	var cleanUp = function(event){
   		var pos = $("#Trash").offset();
   		var offset = $(this).offset();
+          // JD: 5
   		 if (($("#Trash").width()) >= Math.abs(pos.left-offset.left) && 200 >= Math.abs(pos.top-offset.top)){
   			target.remove();
   			dragging.remove()
@@ -32,7 +33,7 @@
   		target = event.target;
   		dragging = $(target).clone()
   			.addClass("dragging-image")
-  			.offset({left: event.pageX, top:event.pageY});
+  			.offset({left: event.pageX, top:event.pageY}); // JD: 4
 
   		$("body")
   			.append(dragging)
@@ -41,5 +42,5 @@
   		dragging.mouseup(cleanUp);
   	});
   };
-  $(".examples").widget();
+  $(".examples").widget(); // JD: 6
 } (jQuery));
